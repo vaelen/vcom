@@ -7,6 +7,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -132,6 +133,18 @@ func toUnix(in []byte, out []byte) []byte {
 	return out
 }
 
+func version() {
+	fmt.Fprintln(flag.CommandLine.Output(), "VCom is a very small serial terminal.")
+	fmt.Fprintln(flag.CommandLine.Output(), "Version 1.0")
+	fmt.Fprintln(flag.CommandLine.Output(), "Copyright 2018, Andrew C. Young <andrew@vaelen.org>")
+}
+
+func usage() {
+	fmt.Fprintln(flag.CommandLine.Output(), "Usage: vcom [options]")
+	fmt.Fprintln(flag.CommandLine.Output(), "Options:")
+	flag.PrintDefaults()
+}
+
 func main() {
 
 	device := flag.String("d", "/dev/ttyS0", "serial device to use")
@@ -139,12 +152,23 @@ func main() {
 	dataBits := flag.Uint("data", 8, "data bits")
 	stopBits := flag.Uint("stop", 1, "stop bits")
 	skipConversion := flag.Bool("raw", false, "disable newline conversion")
+	printVersion := flag.Bool("version", false, "print version information")
+
+	flag.Usage = func() {
+		version()
+		fmt.Fprintln(flag.CommandLine.Output())
+		usage()
+	}
 
 	flag.Parse()
 	if flag.Parsed() {
-		connect(*device, *baudRate, *dataBits, *stopBits, *skipConversion)
+		if *printVersion {
+			version()
+		} else {
+			connect(*device, *baudRate, *dataBits, *stopBits, *skipConversion)
+		}
 	} else {
-		flag.PrintDefaults()
+		flag.Usage()
 	}
 
 }
