@@ -134,8 +134,7 @@ func toUnix(in []byte, out []byte) []byte {
 }
 
 func version() {
-	fmt.Fprintln(flag.CommandLine.Output(), "VCom is a very small serial terminal.")
-	fmt.Fprintln(flag.CommandLine.Output(), "Version 1.0")
+	fmt.Fprintln(flag.CommandLine.Output(), "VCom v1.0, a very small serial terminal.")
 	fmt.Fprintln(flag.CommandLine.Output(), "Copyright 2018, Andrew C. Young <andrew@vaelen.org>")
 }
 

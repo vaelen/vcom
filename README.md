@@ -1,5 +1,5 @@
 # VCom
-A very small and basic serial terminal written in Go.
+A very small serial terminal written in Go.
 
 This project uses the [glide package manager](https://glide.sh/).
 
