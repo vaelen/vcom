@@ -1,0 +1,5 @@
+package: .
+import:
+- package: github.com/jacobsa/go-serial
+  subpackages:
+  - serial
