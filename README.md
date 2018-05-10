@@ -12,10 +12,15 @@ $ go build vcom.go
 To build a smaller binary:
 ```bash
 $ glide update
-$ go build -ldflags="-s -w" vcom.go
+$ go build -ldflags=-w vcom.go
 ```
 
 You can then use the [upx utility](https://upx.github.io/) to make the binary even smaller if needed:
 ```bash
 $ upx --brute vcom
+```
+
+Or, if you would like to build binaries for all supported platforms:
+```bash
+$ ./build
 ```
