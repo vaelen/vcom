@@ -18,3 +18,5 @@ vendor
 
 vcom
 vcom-*
+bin
+go.sum

@@ -1,5 +1,0 @@
-package: github.com/vaelen/vcom
-import:
-- package: github.com/jacobsa/go-serial
-  subpackages:
-  - serial

@@ -4,6 +4,8 @@ env glide update
 
 platforms=("linux/386" "linux/amd64" "linux/arm" "linux/arm64" "windows/amd64" "windows/386" "darwin/amd64")
 
+mkdir -p bin
+
 for platform in "${platforms[@]}"
 do
     platform_split=(${platform//\// })
@@ -18,7 +20,7 @@ do
 
     echo $platform
 
-    env GOOS=$GOOS GOARCH=$GOARCH go build -ldflags="$flags" -o $output_name vcom.go
+    env GOOS=$GOOS GOARCH=$GOARCH go build -ldflags="$flags" -o bin/$output_name vcom.go
     if [ $? -ne 0 ]; then
         echo 'An error has occurred! Aborting the script execution...'
         exit 1
@@ -26,4 +28,4 @@ do
 
 done
 
-env upx --brute vcom-*-*
+env upx --brute bin/vcom-*-*

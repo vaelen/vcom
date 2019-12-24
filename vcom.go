@@ -18,7 +18,7 @@ import (
 
 type converter func(in []byte, out []byte) []byte
 
-func connect(device string, baudRate uint, dataBits uint, stopBits uint, skipConversion bool) {
+func connect(device string, baudRate uint, dataBits uint, stopBits uint, eol string) {
 
 	options := serial.OpenOptions{
 		PortName:        device,
@@ -40,12 +40,8 @@ func connect(device string, baudRate uint, dataBits uint, stopBits uint, skipCon
 
 	done := make(chan bool)
 
-	var fromConverter converter = fromUnix
-	var toConverter converter = toUnix
-	if skipConversion {
-		fromConverter = noConversion
-		toConverter = noConversion
-	}
+	var fromConverter = eolConverter(eol)
+	var toConverter = toUnix
 
 	// STDIN Reader
 	go processingLoop(os.Stdin, port, done, fromConverter, "Console", "Serial port")
@@ -97,16 +93,19 @@ func noConversion(in []byte, out []byte) []byte {
 	return out[:len(in)]
 }
 
-func fromUnix(in []byte, out []byte) []byte {
-	out = out[:0]
-	for _, b := range in {
-		if b == '\n' {
-			out = append(out, '\r', '\n')
-		} else {
-			out = append(out, b)
+func eolConverter(eol string) converter {
+	eolBytes := []byte(eol)
+	return func(in []byte, out []byte) []byte {
+		out = out[:0]
+		for _, b := range in {
+			if b == '\n' {
+				out = append(out, eolBytes...)
+			} else {
+				out = append(out, b)
+			}
 		}
+		return out
 	}
-	return out
 }
 
 func toUnix(in []byte, out []byte) []byte {
@@ -134,7 +133,7 @@ func toUnix(in []byte, out []byte) []byte {
 }
 
 func version() {
-	fmt.Fprintln(flag.CommandLine.Output(), "VCom v1.0, a very small serial terminal.")
+	fmt.Fprintln(flag.CommandLine.Output(), "VCom v1.1, a very small serial terminal.")
 	fmt.Fprintln(flag.CommandLine.Output(), "Copyright 2018, Andrew C. Young <andrew@vaelen.org>")
 }
 
@@ -150,13 +149,25 @@ func main() {
 	baudRate := flag.Uint("b", 19200, "baud rate")
 	dataBits := flag.Uint("data", 8, "data bits")
 	stopBits := flag.Uint("stop", 1, "stop bits")
-	skipConversion := flag.Bool("raw", false, "disable newline conversion")
+	cr := flag.Bool("r", true, "send CR(\\r) for end of line")
+	lf := flag.Bool("n", false, "send LF(\\n) for end of line")
+	crlf := flag.Bool("rn", false, "send CRLF (\\r\\n) for end of line")
 	printVersion := flag.Bool("version", false, "print version information")
-
 	flag.Usage = func() {
 		version()
 		fmt.Fprintln(flag.CommandLine.Output())
 		usage()
+	}
+
+	eol := ""
+	if *cr {
+		eol = "\r"
+	}
+	if *lf {
+		eol = "\n"
+	}
+	if *crlf {
+		eol = "\r\n"
 	}
 
 	flag.Parse()
@@ -164,7 +175,7 @@ func main() {
 		if *printVersion {
 			version()
 		} else {
-			connect(*device, *baudRate, *dataBits, *stopBits, *skipConversion)
+			connect(*device, *baudRate, *dataBits, *stopBits, eol)
 		}
 	} else {
 		flag.Usage()
