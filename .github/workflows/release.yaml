@@ -23,8 +23,8 @@ jobs:
 
     - name: Install dependencies
       run: |
-        apt-get update
-        apt-get install -y make upx-ucl
+        sudo apt-get update
+        sudo apt-get install -y make upx-ucl
 
     - name: Build
       run: make release
