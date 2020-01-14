@@ -1,26 +1,29 @@
 # VCom
 A very small serial terminal written in Go.
 
-This project uses the [glide package manager](https://glide.sh/).
+Copyright 2019, Andrew C. Young
+
+Released under the MIT license.
 
 To build:
 ```bash
-$ glide update
-$ go build vcom.go
+$ make
 ```
 
-To build a smaller binary:
-```bash
-$ glide update
-$ go build -ldflags=-w vcom.go
-```
-
-You can then use the [upx utility](https://upx.github.io/) to make the binary even smaller if needed:
+You can then use the [upx utility](https://upx.github.io/)
+to make the binary even smaller if needed:
 ```bash
 $ upx --brute vcom
 ```
 
-Or, if you would like to build binaries for all supported platforms:
+If you would like to build binaries for all supported platforms,
+including compression:
 ```bash
-$ ./build
+$ make release
+```
+
+If you would like to build binaries for all supported platforms,
+without compression:
+```bash
+$ make releases
 ```

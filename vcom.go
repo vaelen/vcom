@@ -1,4 +1,4 @@
-// Copyright 2018, Andrew C. Young
+// Copyright 2019, Andrew C. Young
 // License: MIT
 
 // VCom is an extremely small and basic serial terminal.
@@ -134,7 +134,7 @@ func toUnix(in []byte, out []byte) []byte {
 
 func version() {
 	fmt.Fprintln(flag.CommandLine.Output(), "VCom v1.1, a very small serial terminal.")
-	fmt.Fprintln(flag.CommandLine.Output(), "Copyright 2018, Andrew C. Young <andrew@vaelen.org>")
+	fmt.Fprintln(flag.CommandLine.Output(), "Copyright 2019, Andrew C. Young <andrew@vaelen.org>")
 }
 
 func usage() {
