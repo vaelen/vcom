@@ -102,8 +102,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/vcom-windows-arm64.exe
-          asset_name: vcom-windows-arm64.exe
+          asset_path: ./bin/vcom-windows-amd64.exe
+          asset_name: vcom-windows-amd64.exe
           asset_content_type: application/octet-stream
 
     - name: Upload Darwin arm64
@@ -113,6 +113,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./bin/vcom-darwin-arm64
-          asset_name: vcom-darwin-arm64
+          asset_path: ./bin/vcom-darwin-amd64
+          asset_name: vcom-darwin-amd64
           asset_content_type: application/octet-stream
