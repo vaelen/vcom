@@ -41,7 +41,7 @@ jobs:
         prerelease: false
 
     - name: Upload Linux 386
-      id: upload-release-asset
+      id: upload-linux-386
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -52,7 +52,7 @@ jobs:
           asset_content_type: application/octet-stream
 
     - name: Upload Linux amd64
-      id: upload-release-asset
+      id: upload-linux-amd64
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -63,7 +63,7 @@ jobs:
           asset_content_type: application/octet-stream
 
     - name: Upload Linux arm
-      id: upload-release-asset
+      id: upload-linux-arm
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -74,7 +74,7 @@ jobs:
           asset_content_type: application/octet-stream
 
     - name: Upload Linux arm64
-      id: upload-release-asset
+      id: upload-linux-arm64
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -85,7 +85,7 @@ jobs:
           asset_content_type: application/octet-stream
 
     - name: Upload Windows 386
-      id: upload-release-asset
+      id: upload-windows-386
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -96,7 +96,7 @@ jobs:
           asset_content_type: application/octet-stream
 
     - name: Upload Windows arm64
-      id: upload-release-asset
+      id: upload-windows-arm64
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -107,7 +107,7 @@ jobs:
           asset_content_type: application/octet-stream
 
     - name: Upload Darwin arm64
-      id: upload-release-asset
+      id: upload-darwin-arm64
       uses: actions/upload-release-asset@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
